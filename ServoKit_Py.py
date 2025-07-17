@@ -7,7 +7,7 @@ kit = ServoKit(channels=16)
 # Example: assuming 6 servos (legs, arms, head etc.)
 # Set all servos to 90° (neutral position)
 def go_to_default_pose():
-    default_angles = [90, 90, 90, 90, 90, 90]  # Change as needed
+    default_angles = [90]  # Change as needed
     for i, angle in enumerate(default_angles):
         kit.servo[i].angle = angle
         time.sleep(0.2)

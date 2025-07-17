@@ -1,0 +1,289 @@
+{
+  "settings": {
+    "display": {
+      "width": 480,
+      "height": 320,
+      "fps": 60,
+      "title": "Enhanced Cute Robot Face"
+    },
+    "face_proportions": {
+      "eye_base_size_factor": 0.12,
+      "eye_separation_factor": 0.25,
+      "eye_y_position": 0.6,
+      "mouth_y_position": 0.35,
+      "eyebrow_y_position": 0.72,
+      "mouth_width_factor": 0.12,
+      "mouth_height_factor": 0.02,
+      "eyebrow_width_factor": 1.2
+    },
+    "colors": {
+      "face": [0.9, 0.9, 0.9],
+      "pupil": [0.0, 0.0, 0.0],
+      "eyebrow": [0.7, 0.7, 0.7],
+      "tear": [0.7, 0.9, 1.0, 0.8]
+    },
+    "animations": {
+      "transition_speed": 2.0,
+      "blink_duration": 0.15,
+      "breathing_speed": 2.0,
+      "tear_speed_range": [80, 120],
+      "heart_speed_range": [30, 60],
+      "sparkle_life_range": [1, 2]
+    }
+  },
+  "parameter_maps": {
+    "cute_face_proportions": {
+      "eye_size_multiplier": 1.8,
+      "eye_separation_factor": 0.8,
+      "mouth_size_factor": 0.6,
+      "mouth_position_lower": 0.7
+    },
+    "eyebrow_positions": {
+      "very_low": -30,
+      "low": -15,
+      "normal": 0,
+      "raised": 15,
+      "high": 30,
+      "very_high": 45,
+      "angry": -25,
+      "worried": 10
+    },
+    "eye_sizes": {
+      "tiny": 0.5,
+      "small": 0.7,
+      "normal": 1.0,
+      "large": 1.3,
+      "huge": 1.6,
+      "cute_default": 1.4,
+      "sleepy": 0.3,
+      "wide_awake": 1.8
+    },
+    "eye_shapes": {
+      "circle": "circle",
+      "oval": "oval",
+      "half_closed": "horizontal_oval",
+      "closed": "line",
+      "crescent_happy": "crescent_up",
+      "crescent_sad": "crescent_down",
+      "wide": "wide_circle",
+      "squinted": "squinted_oval",
+      "heart": "heart_shape",
+      "star": "star_shape",
+      "x_shaped": "x_eyes",
+      "spiral": "spiral_eyes",
+      "dollar": "dollar_eyes",
+      "sleepy": "sleepy_droop"
+    },
+    "mouth_shapes": {
+      "neutral": "horizontal_line",
+      "small_smile": "slight_curve_up",
+      "big_smile": "wide_curve_up",
+      "small_frown": "slight_curve_down",
+      "big_frown": "wide_curve_down",
+      "open_small": "small_oval",
+      "open_wide": "large_oval",
+      "open_round": "circle",
+      "cute_smile": "gentle_curve_up",
+      "pout": "small_pout",
+      "kiss": "small_pucker",
+      "wavy": "wavy_line",
+      "zigzag": "zigzag_line",
+      "heart": "heart_mouth",
+      "gasp": "shocked_oval",
+      "talking": "talking_animation"
+    },
+    "vibration_patterns": {
+      "none": {"intensity": 0, "frequency": 0},
+      "gentle": {"intensity": 2, "frequency": 10},
+      "medium": {"intensity": 5, "frequency": 15},
+      "strong": {"intensity": 8, "frequency": 20},
+      "excited": {"intensity": 3, "frequency": 25},
+      "nervous": {"intensity": 1, "frequency": 30},
+      "heartbreak": {"intensity": 12, "frequency": 8},
+      "rage": {"intensity": 15, "frequency": 35},
+      "giggle": {"intensity": 4, "frequency": 12}
+    }
+  },
+  "expressions": {
+    "cute_neutral": {
+      "eyes": {"shape": "circle", "size": "cute_default"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "normal"},
+      "mouth": {"shape": "cute_smile"},
+      "background": {"color": "none", "effect": "none"},
+      "vibration": {"pattern": "none"},
+      "special_effects": []
+    },
+    "happy": {
+      "eyes": {"shape": "crescent_happy", "size": "cute_default"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "raised"},
+      "mouth": {"shape": "big_smile"},
+      "background": {"color": "yellow", "effect": "sparkles"},
+      "vibration": {"pattern": "gentle"},
+      "special_effects": ["sparkles"]
+    },
+    "overjoyed": {
+      "eyes": {"shape": "star", "size": "huge"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "very_high"},
+      "mouth": {"shape": "big_smile"},
+      "background": {"color": "yellow", "effect": "sparkles"},
+      "vibration": {"pattern": "excited"},
+      "special_effects": ["sparkles", "energy_lines"]
+    },
+    "excited": {
+      "eyes": {"shape": "star", "size": "huge"},
+      "pupils": {"position": "center", "size": "large"},
+      "eyebrows": {"position": "very_high"},
+      "mouth": {"shape": "big_smile"},
+      "background": {"color": "orange", "effect": "energy_burst"},
+      "vibration": {"pattern": "excited"},
+      "special_effects": ["sparkles", "energy_lines"]
+    },
+    "love": {
+      "eyes": {"shape": "heart", "size": "large"},
+      "pupils": {"position": "center", "size": "small"},
+      "eyebrows": {"position": "raised"},
+      "mouth": {"shape": "kiss"},
+      "background": {"color": "pink", "effect": "floating_hearts"},
+      "vibration": {"pattern": "gentle"},
+      "special_effects": ["floating_hearts"]
+    },
+    "in_love": {
+      "eyes": {"shape": "heart", "size": "huge"},
+      "pupils": {"position": "center", "size": "small"},
+      "eyebrows": {"position": "raised"},
+      "mouth": {"shape": "big_smile"},
+      "background": {"color": "pink", "effect": "floating_hearts"},
+      "vibration": {"pattern": "gentle"},
+      "special_effects": ["floating_hearts", "sparkles"]
+    },
+    "sad": {
+      "eyes": {"shape": "oval", "size": "large"},
+      "pupils": {"position": "down", "size": "large"},
+      "eyebrows": {"position": "low"},
+      "mouth": {"shape": "big_frown"},
+      "background": {"color": "blue", "effect": "rain"},
+      "vibration": {"pattern": "gentle"},
+      "special_effects": ["tears"]
+    },
+    "crying": {
+      "eyes": {"shape": "crescent_sad", "size": "large"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "low"},
+      "mouth": {"shape": "big_frown"},
+      "background": {"color": "blue", "effect": "rain"},
+      "vibration": {"pattern": "gentle"},
+      "special_effects": ["tears"]
+    },
+    "heartbroken": {
+      "eyes": {"shape": "crescent_sad", "size": "huge"},
+      "pupils": {"position": "center", "size": "large"},
+      "eyebrows": {"position": "very_low"},
+      "mouth": {"shape": "big_frown"},
+      "background": {"color": "red", "effect": "broken_hearts"},
+      "vibration": {"pattern": "heartbreak"},
+      "special_effects": ["tears", "broken_heart"]
+    },
+    "angry": {
+      "eyes": {"shape": "squinted", "size": "small"},
+      "pupils": {"position": "center", "size": "tiny"},
+      "eyebrows": {"position": "angry"},
+      "mouth": {"shape": "zigzag"},
+      "background": {"color": "red", "effect": "fire"},
+      "vibration": {"pattern": "rage"},
+      "special_effects": ["steam", "fire_effect"]
+    },
+    "furious": {
+      "eyes": {"shape": "squinted", "size": "small"},
+      "pupils": {"position": "center", "size": "tiny"},
+      "eyebrows": {"position": "angry"},
+      "mouth": {"shape": "zigzag"},
+      "background": {"color": "red", "effect": "fire"},
+      "vibration": {"pattern": "rage"},
+      "special_effects": ["steam", "fire_effect"]
+    },
+    "sleepy": {
+      "eyes": {"shape": "sleepy", "size": "sleepy"},
+      "pupils": {"position": "center", "size": "small"},
+      "eyebrows": {"position": "low"},
+      "mouth": {"shape": "small_smile"},
+      "background": {"color": "purple", "effect": "zzz"},
+      "vibration": {"pattern": "none"},
+      "special_effects": ["zzz_bubbles"]
+    },
+    "surprised": {
+      "eyes": {"shape": "wide", "size": "huge"},
+      "pupils": {"position": "center", "size": "large"},
+      "eyebrows": {"position": "very_high"},
+      "mouth": {"shape": "gasp"},
+      "background": {"color": "cyan", "effect": "shock_lines"},
+      "vibration": {"pattern": "medium"},
+      "special_effects": ["shock_lines"]
+    },
+    "shocked": {
+      "eyes": {"shape": "wide", "size": "huge"},
+      "pupils": {"position": "center", "size": "tiny"},
+      "eyebrows": {"position": "very_high"},
+      "mouth": {"shape": "gasp"},
+      "background": {"color": "white", "effect": "shock_lines"},
+      "vibration": {"pattern": "strong"},
+      "special_effects": ["shock_lines"]
+    },
+    "confused": {
+      "eyes": {"shape": "spiral", "size": "normal"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "worried"},
+      "mouth": {"shape": "wavy"},
+      "background": {"color": "yellow", "effect": "question_marks"},
+      "vibration": {"pattern": "nervous"},
+      "special_effects": ["question_marks", "sweat_drops"]
+    },
+    "money_eyes": {
+      "eyes": {"shape": "dollar", "size": "large"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "raised"},
+      "mouth": {"shape": "big_smile"},
+      "background": {"color": "green", "effect": "coins"},
+      "vibration": {"pattern": "excited"},
+      "special_effects": ["coin_sparkles"]
+    },
+    "playful": {
+      "eyes": {"shape": "circle", "size": "cute_default"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "raised"},
+      "mouth": {"shape": "big_smile"},
+      "background": {"color": "orange", "effect": "sparkles"},
+      "vibration": {"pattern": "gentle"},
+      "special_effects": ["sparkles"]
+    },
+    "mischievous": {
+      "eyes": {"shape": "squinted", "size": "cute_default"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "raised"},
+      "mouth": {"shape": "small_smile"},
+      "background": {"color": "none", "effect": "none"},
+      "vibration": {"pattern": "none"},
+      "special_effects": []
+    },
+    "talking": {
+      "eyes": {"shape": "circle", "size": "cute_default"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "normal"},
+      "mouth": {"shape": "talking"},
+      "background": {"color": "none", "effect": "none"},
+      "vibration": {"pattern": "gentle"},
+      "special_effects": ["speech_bubbles"]
+    },
+    "laughing": {
+      "eyes": {"shape": "crescent_happy", "size": "large"},
+      "pupils": {"position": "center", "size": "normal"},
+      "eyebrows": {"position": "raised"},
+      "mouth": {"shape": "big_smile"},
+      "background": {"color": "yellow", "effect": "sparkles"},
+      "vibration": {"pattern": "giggle"},
+      "special_effects": ["sparkles", "laughter_lines"]
+    }
+  }
+}

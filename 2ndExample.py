@@ -10,6 +10,6 @@ for i in range(16):
     time.sleep(0.1)
 
 # Now move each to a different angle to test full range
-for i in range(16):
-    kit.servo[i].angle = 45 + (i * 5) % 90  # just a pattern for demo
-    time.sleep(0.1)
+# for i in range(16):
+#     kit.servo[i].angle = 45 + (i * 5) % 90  # just a pattern for demo
+#     time.sleep(0.1)
