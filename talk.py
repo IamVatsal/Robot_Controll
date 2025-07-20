@@ -1048,7 +1048,7 @@ class EnhancedRobotFace:
             self.draw_circle(right_eye_x, eye_y, laugh_radius)
             # Draw pupils for laughing eyes
             if blink_factor < 0.7:
-                self.draw_pupils(left_eye_x, right_eye_y, eye_y, laugh_radius, pupils_data, blink_factor)
+                self.draw_pupils(left_eye_x, eye_y, eye_y, laugh_radius, pupils_data, blink_factor)
         else:
             # Standard eye shapes with blinking
             if blink_factor > 0:
