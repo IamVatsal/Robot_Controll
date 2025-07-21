@@ -132,6 +132,78 @@ class Robot:
             write_angle(servo_map[part], angle)
         print("Robot moved to standby/calibrated position.")
 
+    def say_hi(self):
+        print("👋 Starting hi gesture...")
+        
+        # Store original positions to restore later
+        original_chest = self.angle_state["left_chest"]
+        original_shoulder = self.angle_state["left_shoulder"] 
+        original_wrist = self.angle_state["left_wrist"]
+        
+        try:
+            # Initial positioning
+            write_angle(servo_map["left_chest"], 50)
+            self.angle_state["left_chest"] = 50
+            time.sleep(1)
+            
+            write_angle(servo_map["left_shoulder"], 30)
+            self.angle_state["left_shoulder"] = 30
+            
+            write_angle(servo_map["left_wrist"], 120)
+            self.angle_state["left_wrist"] = 120
+            
+            # Waving motion - 3 cycles
+            for i in range(3):
+                print(f"  Wave cycle {i+1}/3")
+                
+                # Wave up
+                for j in range(60):
+                    shoulder_angle = min(30 + j, 65)
+                    wrist_angle = 120 + j
+                    
+                    write_angle(servo_map["left_shoulder"], shoulder_angle)
+                    write_angle(servo_map["left_wrist"], wrist_angle)
+                    
+                    self.angle_state["left_shoulder"] = shoulder_angle
+                    self.angle_state["left_wrist"] = wrist_angle
+                    
+                    time.sleep(0.05)
+                
+                time.sleep(0.5)
+                
+                # Wave down
+                for j in range(60, 0, -1):
+                    shoulder_angle = max(30, 65 - (60 - j))
+                    wrist_angle = 120 + j
+                    
+                    write_angle(servo_map["left_shoulder"], shoulder_angle)
+                    write_angle(servo_map["left_wrist"], wrist_angle)
+                    
+                    self.angle_state["left_shoulder"] = shoulder_angle
+                    self.angle_state["left_wrist"] = wrist_angle
+                    
+                    time.sleep(0.05)
+                
+                time.sleep(0.5)
+            
+            print("✅ Hi gesture completed!")
+        
+        except Exception as e:
+            print(f"❌ Error during hi gesture: {e}")
+        
+        finally:
+            # Return to original positions
+            print("🔄 Returning to original positions...")
+            write_angle(servo_map["left_chest"], original_chest)
+            write_angle(servo_map["left_shoulder"], original_shoulder)
+            write_angle(servo_map["left_wrist"], original_wrist)
+
+            self.angle_state["left_chest"] = original_chest
+            self.angle_state["left_shoulder"] = original_shoulder
+            self.angle_state["left_wrist"] = original_wrist
+            
+            time.sleep(1)
+
     def release_all(self):
         for idx in servo_map.values():
             release_angle(idx)
