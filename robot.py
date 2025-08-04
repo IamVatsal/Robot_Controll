@@ -315,12 +315,12 @@ class Robot:
         
         try:
             # Initial positioning
-            write_angle(servo_map["right_chest"], 50)
-            self.angle_state["right_chest"] = 50
+            write_angle(servo_map["right_chest"], 46)
+            self.angle_state["right_chest"] = 46
             time.sleep(1)
 
-            write_angle(servo_map["right_shoulder"], 30)
-            self.angle_state["right_shoulder"] = 30
+            write_angle(servo_map["right_shoulder"], 116)
+            self.angle_state["right_shoulder"] = 116
 
             write_angle(servo_map["right_wrist"], 120)
             self.angle_state["right_wrist"] = 120
@@ -330,8 +330,8 @@ class Robot:
                 print(f"  Wave cycle {i+1}/3")
                 
                 # Wave up
-                for j in range(60):
-                    shoulder_angle = min(30 + j, 65)
+                for j in range(140):
+                    shoulder_angle = min(116 + j, 250)
                     wrist_angle = 120 + j
                     
                     write_angle(servo_map["right_shoulder"], shoulder_angle)
@@ -345,8 +345,8 @@ class Robot:
                 time.sleep(0.1)
                 
                 # Wave down
-                for j in range(60, 0, -1):
-                    shoulder_angle = max(30, 65 - (60 - j))
+                for j in range(140, 0, -1):
+                    shoulder_angle = max(116, 250 - (140 - j))
                     wrist_angle = 120 + j
 
                     write_angle(servo_map["right_shoulder"], shoulder_angle)
@@ -694,7 +694,8 @@ if __name__ == "__main__":
     print("1. Press 'k' for keyboard control")
     print("2. Press 'w' for walking demo")
     print("3. Press 'h' for hi gesture")
-    print("4. Press 'q' to quit")
+    print("4. Press 'b' for both hands raise")
+    print("5. Press 'q' to quit")
     
     while True:
          print("\nEnter command: ", end="", flush=True)
@@ -704,8 +705,11 @@ if __name__ == "__main__":
                  robot.keyboard_control()
              elif key == 'w':
                  robot.walk_demo()
+             elif key == 'b':
+                 robot.say_hi_left()
+                 robot.say_hi_right()
              elif key == 'h':
-                 robot.say_hi()
+                 robot.say_hi_right()
              elif key == 'q':
                  break
              else:
