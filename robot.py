@@ -2,6 +2,7 @@ import json
 import time
 import board
 import busio
+import threading
 import adafruit_bitbangio as bitbangio
 from adafruit_pca9685 import PCA9685
 
@@ -377,6 +378,23 @@ class Robot:
 
             time.sleep(1)
 
+    def say_hi_both(self):
+        print("👋 Starting both hands hi gesture...")
+    
+        # Create threads for each hand
+        left_thread = threading.Thread(target=self.say_hi_left)
+        right_thread = threading.Thread(target=self.say_hi_right)
+
+        # Start both threads simultaneously
+        left_thread.start()
+        right_thread.start()
+
+        # Wait for both to complete
+        left_thread.join()
+        right_thread.join()
+
+        print("✅ Both hands hi gesture completed!")
+
     def release_all(self):
         for idx in servo_map.values():
             release_angle(idx)
@@ -678,9 +696,7 @@ def handle_input(robot,logger,input):
         # robot.leftHandRaise()
     elif(input == "both_hands_raise"):
         logger.warning("Raising both hands...")
-        robot.say_hi_left()
-        robot.say_hi_right()
-        # robot.bothHandsRaise()
+        robot.say_hi_both()
     elif(input == "walk_forward"):
         logger.warning("Walking forward...")
         robot.walk_demo()
