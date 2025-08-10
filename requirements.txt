@@ -1,0 +1,21 @@
+# Core hardware control
+adafruit-circuitpython-pca9685
+adafruit-blinka
+
+# For I2C bitbang (if used)
+adafruit-circuitpython-bitbangio
+
+# For face/emotion display and OpenGL
+pygame
+PyOpenGL
+PyOpenGL_accelerate
+
+# For voice assistant and audio
+requests
+pyaudio
+
+# For ML/AI API integration (if used)
+openai
+
+# For general utilities
+numpy
