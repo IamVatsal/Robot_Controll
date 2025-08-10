@@ -2,6 +2,7 @@ import json
 import time
 import board
 import busio
+import threading
 import adafruit_bitbangio as bitbangio
 from adafruit_pca9685 import PCA9685
 
@@ -233,7 +234,7 @@ class Robot:
             write_angle(servo_map[part], angle)
         print("Robot moved to standby/calibrated position.")
 
-    def say_hi(self):
+    def say_hi_left(self):
         print("👋 Starting hi gesture...")
         
         # Store original positions to restore later
@@ -304,6 +305,95 @@ class Robot:
             self.angle_state["left_wrist"] = original_wrist
             
             time.sleep(1)
+
+    def say_hi_right(self):
+        print("👋 Starting hi gesture...")
+        
+        # Store original positions to restore later
+        original_chest = self.angle_state["right_chest"]
+        original_shoulder = self.angle_state["right_shoulder"] 
+        original_wrist = self.angle_state["right_wrist"]
+        
+        try:
+            # Initial positioning
+            write_angle(servo_map["right_chest"], 46)
+            self.angle_state["right_chest"] = 46
+            time.sleep(1)
+
+            write_angle(servo_map["right_shoulder"], 116)
+            self.angle_state["right_shoulder"] = 116
+
+            write_angle(servo_map["right_wrist"], 120)
+            self.angle_state["right_wrist"] = 120
+
+            # Waving motion - 3 cycles
+            for i in range(3):
+                print(f"  Wave cycle {i+1}/3")
+                
+                # Wave up
+                for j in range(140):
+                    shoulder_angle = min(116 + j, 250)
+                    wrist_angle = 120 + j
+                    
+                    write_angle(servo_map["right_shoulder"], shoulder_angle)
+                    write_angle(servo_map["right_wrist"], wrist_angle)
+                    
+                    self.angle_state["right_shoulder"] = shoulder_angle
+                    self.angle_state["right_wrist"] = wrist_angle
+                    
+                    time.sleep(0.01)
+                
+                time.sleep(0.1)
+                
+                # Wave down
+                for j in range(140, 0, -1):
+                    shoulder_angle = max(116, 250 - (140 - j))
+                    wrist_angle = 120 + j
+
+                    write_angle(servo_map["right_shoulder"], shoulder_angle)
+                    write_angle(servo_map["right_wrist"], wrist_angle)
+
+                    self.angle_state["right_shoulder"] = shoulder_angle
+                    self.angle_state["right_wrist"] = wrist_angle
+                    
+                    time.sleep(0.01)
+                
+                time.sleep(0.1)
+            
+            print("✅ Hi gesture completed!")
+        
+        except Exception as e:
+            print(f"❌ Error during hi gesture: {e}")
+        
+        finally:
+            # Return to original positions
+            print("🔄 Returning to original positions...")
+            write_angle(servo_map["right_chest"], original_chest)
+            write_angle(servo_map["right_shoulder"], original_shoulder)
+            write_angle(servo_map["right_wrist"], original_wrist)
+
+            self.angle_state["right_chest"] = original_chest
+            self.angle_state["right_shoulder"] = original_shoulder
+            self.angle_state["right_wrist"] = original_wrist
+
+            time.sleep(1)
+
+    def say_hi_both(self):
+        print("👋 Starting both hands hi gesture...")
+    
+        # Create threads for each hand
+        left_thread = threading.Thread(target=self.say_hi_left)
+        right_thread = threading.Thread(target=self.say_hi_right)
+
+        # Start both threads simultaneously
+        left_thread.start()
+        right_thread.start()
+
+        # Wait for both to complete
+        left_thread.join()
+        right_thread.join()
+
+        print("✅ Both hands hi gesture completed!")
 
     def release_all(self):
         for idx in servo_map.values():
@@ -574,6 +664,7 @@ def init_robot(input,logger, calibration_path=None):
     handle_input(robot,logger, input)
 
     return robot
+
 def handle_input(robot,logger,input):
 
     if(input == "no_movement"):
@@ -590,23 +681,22 @@ def handle_input(robot,logger,input):
     #     robot.leftLegMove(1, 10)
     elif(input == "right_hand_wave"):
         logger.warning("Waving right hand...")
-        robot.say_hi()
+        robot.say_hi_right()
     elif(input == "left_hand_wave"):
         logger.warning("Waving left hand...")
-        robot.say_hi()
+        robot.say_hi_left()
         # robot.leftHandWave()
     elif(input == "right_hand_raise"):
         logger.warning("Raising right hand...")
-        robot.say_hi()
+        robot.say_hi_left()
         # robot.rightHandRaise()
     elif(input == "left_hand_raise"):
         logger.warning("Raising left hand...")
-        robot.say_hi()
+        robot.say_hi_left()
         # robot.leftHandRaise()
     elif(input == "both_hands_raise"):
         logger.warning("Raising both hands...")
-        robot.say_hi()
-        # robot.bothHandsRaise()
+        robot.say_hi_both()
     elif(input == "walk_forward"):
         logger.warning("Walking forward...")
         robot.walk_demo()
@@ -620,7 +710,8 @@ if __name__ == "__main__":
     print("1. Press 'k' for keyboard control")
     print("2. Press 'w' for walking demo")
     print("3. Press 'h' for hi gesture")
-    print("4. Press 'q' to quit")
+    print("4. Press 'b' for both hands raise")
+    print("5. Press 'q' to quit")
     
     while True:
          print("\nEnter command: ", end="", flush=True)
@@ -630,8 +721,11 @@ if __name__ == "__main__":
                  robot.keyboard_control()
              elif key == 'w':
                  robot.walk_demo()
+             elif key == 'b':
+                 robot.say_hi_left()
+                 robot.say_hi_right()
              elif key == 'h':
-                 robot.say_hi()
+                 robot.say_hi_right()
              elif key == 'q':
                  break
              else:

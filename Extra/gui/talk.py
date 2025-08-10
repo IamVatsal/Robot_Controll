@@ -22,7 +22,7 @@ import urllib.parse
 import struct
 import urllib3
 from typing import Dict, List, Tuple, Optional, Any
-from robot import handle_input
+from Letest.robot import handle_input
 
 # Disable SSL warnings (only if you need to use verify=False)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

@@ -33,7 +33,7 @@ import re
 import numpy as np
 from PIL import Image
 from typing import Dict, List, Tuple, Optional, Any
-#import speech_recognition as sr
+# import speech_recognition as sr
 from io import BytesIO
 from vosk import Model, KaldiRecognizer
 import pyaudio
@@ -269,7 +269,7 @@ class VoiceAssistantClient:
                 encoded_text_response = response.headers.get('X-LLM-Text', 'I am here to help!')
                 language_used = response.headers.get('X-Language-Used', 'english')
                 audio_format = response.headers.get('X-Audio-Format', 'mp3')
-                robot_action_response = response.headers.get('X-Robot-Action', 'no_movement')
+                robot_action_response = response.headers.get('X-Robot-Action', 'none')
                 
                 try:
                     text_response = urllib.parse.unquote(encoded_text_response)
