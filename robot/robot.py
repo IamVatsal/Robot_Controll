@@ -525,8 +525,8 @@ class Robot:
             release_angle(idx)
         print("All servos released.")
 
-    def clap(self):
-        print("👏 Starting clap gesture...")
+    def updown(self):
+        print("Starting up-down gesture...")
         # Store original positions to restore later
         original_left_chest = self.angle_state["left_chest"]
         original_left_shoulder = self.angle_state["left_shoulder"]
@@ -536,44 +536,50 @@ class Robot:
         original_right_wrist = self.angle_state["right_wrist"]
 
         # Angle to Move
-        right_chest_angle = 90
-        left_chest_angle = 90
-        right_shoulder_angle = 135
-        left_shoulder_angle = 45
-        right_wrist_angle = 90
-        left_wrist_angle = 90
+        right_chest_angle_up = 90
+        left_chest_angle_up = 90
+        right_chest_angle_down = 46
+        left_chest_angle_down = 65
+        right_shoulder_angle = 116
+        left_shoulder_angle = 180
+        right_wrist_angle = 117
+        left_wrist_angle = 155
 
         try:
-            # Clap motion - 3 cycles
-            # Right Need To Change Angle For Chest for claping action
-            self.move_servo_smooth(servo_map["right_chest"], original_right_chest, right_chest_angle, 2, 0.02)
-            # left Need To Change Angle For Chest for claping action
-            self.move_servo_smooth(servo_map["left_chest"], original_left_chest, left_chest_angle, 2, 0.02)
+            # hand updown motion - 3 cycles
+            self.move_servo_smooth(servo_map["left_shoulder"], original_left_shoulder, left_shoulder_angle, 2, 0.02)
+            self.move_servo_smooth(servo_map["left_wrist"], original_left_wrist, left_wrist_angle, 2, 0.02)
+            self.move_servo_smooth(servo_map["right_shoulder"], original_right_shoulder, right_shoulder_angle, 2, 0.02)
+            self.move_servo_smooth(servo_map["right_wrist"], original_right_wrist, right_wrist_angle, 2, 0.02)
+
+            self.move_servo_smooth(servo_map["right_chest"], original_right_chest, right_chest_angle_down, 2, 0.02)
+            self.move_servo_smooth(servo_map["left_chest"], original_left_chest, left_chest_angle_down, 2, 0.02)
             for i in range(3):
                 print(f"  Clap cycle {i+1}/3")
 
-                # Move arms together
-                self.move_servo_smooth(servo_map["left_shoulder"], original_left_shoulder, left_shoulder_angle, 2, 0.02)
-                self.move_servo_smooth(servo_map["left_wrist"], original_left_wrist, left_wrist_angle, 2, 0.02)
-                self.move_servo_smooth(servo_map["right_shoulder"], original_right_shoulder, right_shoulder_angle, 2, 0.02)
-                self.move_servo_smooth(servo_map["right_wrist"], original_right_wrist, right_wrist_angle, 2, 0.02)
+                # Move arms up
+                self.move_servo_smooth(servo_map["right_chest"], original_right_chest, right_chest_angle_up, 2, 0.002)
+                self.move_servo_smooth(servo_map["left_chest"], original_left_chest, left_chest_angle_up, 2, 0.002)
 
-                time.sleep(0.5)
+                time.sleep(0.3)
 
-                # Move arms back
-                self.move_servo_smooth(servo_map["left_shoulder"], left_shoulder_angle, original_left_shoulder, 2, 0.02)
-                self.move_servo_smooth(servo_map["left_wrist"], left_wrist_angle, original_left_wrist, 2, 0.02)
-                self.move_servo_smooth(servo_map["right_shoulder"], right_shoulder_angle, original_right_shoulder, 2, 0.02)
-                self.move_servo_smooth(servo_map["right_wrist"], right_wrist_angle, original_right_wrist, 2, 0.02)
+                # Move arms down
+                self.move_servo_smooth(servo_map["right_chest"], right_chest_angle_down, original_right_chest, 2, 0.002)
+                self.move_servo_smooth(servo_map["left_chest"], left_chest_angle_down, original_left_chest, 2, 0.002)
 
-                time.sleep(0.5)
+                time.sleep(0.3)
 
-            self.move_servo_smooth(servo_map["right_chest"], right_chest_angle, original_right_chest, 2, 0.02)
-            self.move_servo_smooth(servo_map["left_chest"], left_chest_angle, original_left_chest, 2, 0.02)
-            print("✅ Clap gesture completed!")
+            self.move_servo_smooth(servo_map["right_chest"], right_chest_angle_down, original_right_chest, 2, 0.02)
+            self.move_servo_smooth(servo_map["left_chest"], left_chest_angle_down, original_left_chest, 2, 0.02)
+
+            self.move_servo_smooth(servo_map["left_shoulder"], left_shoulder_angle, original_left_shoulder, 2, 0.02)
+            self.move_servo_smooth(servo_map["left_wrist"], left_wrist_angle, original_left_wrist, 2, 0.02)
+            self.move_servo_smooth(servo_map["right_shoulder"], right_shoulder_angle, original_right_shoulder, 2, 0.02)
+            self.move_servo_smooth(servo_map["right_wrist"], right_wrist_angle, original_right_wrist, 2, 0.02)
+            print("✅ upDown gesture completed!")
 
         except Exception as e:
-            print(f"❌ Error during clap gesture: {e}")
+            print(f"❌ Error during upDown gesture: {e}")
 
         finally:
             # Return to original positions
@@ -1003,7 +1009,7 @@ def handle_input(robot,logger,input):
 
 if __name__ == "__main__":
     robot = Robot()
-    robot.go_to_standby()
+    # robot.go_to_standby()
     
     print("\n🤖 Robot Control Options:")
     print("1. Press 'k' for keyboard control")
@@ -1019,7 +1025,7 @@ if __name__ == "__main__":
              if key == 'k':
                  robot.keyboard_control()
              elif key == 'w':
-                 robot.walk_demo()
+                 robot.updown()
              elif key == 'b':
                  robot.say_hi_left()
                  robot.say_hi_right()
