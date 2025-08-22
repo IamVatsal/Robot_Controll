@@ -1,5 +1,7 @@
 # Bipedal Robot Control System with ML, Voice, and Emotions
 
+![Robot waving hand](Robot.gif)
+
 This repository contains all the code and tools to control a 16-servo bipedal humanoid robot using a Raspberry Pi. The robot can walk, show expressive emotions on a digital face, and interact with users via voice using machine learning (ML) and AI APIs.
 
 ## Features
@@ -27,7 +29,8 @@ This repository contains all the code and tools to control a 16-servo bipedal hu
 
 ## Main Components
 
-- `robot/robot.py` - Main robot control class (walking, gestures, keyboard control)
+- `main/mtalk.py` - Main entry point for running on Raspberry Pi (recommended usage)
+- `robot/robot.py` - Robot control class (testing and development)
 - `robot/Calibrate.py` - Servo calibration tool
 - `talk.py` - Voice assistant and emotion display system
 - `enhanced_expressions.json` - Config for robot face expressions
@@ -40,14 +43,16 @@ python robot/Calibrate.py
 ```
 Follow on-screen instructions to calibrate each servo and save `servo_calibration.json`.
 
-### 2. Control the Robot
+### 2. Run on Raspberry Pi (Recommended)
 ```
-python robot/robot.py
+python main/robot.py
 ```
-- Use keyboard to walk, wave, or manually control joints.
-- Press `w` for walking demo, `h` for hi gesture, `k` for manual control.
+- This is the main file for controlling the robot on Raspberry Pi.
 
-### 3. Run Voice Assistant & Emotions
+### 3. Testing and Development
+- Files in `robot/` are for testing and development purposes.
+
+### 4. Run Voice Assistant & Emotions
 ```
 python mtalk.py
 ```
@@ -56,13 +61,12 @@ python mtalk.py
 ## Project Structure
 
 ```
+main/                     # Main entry for Raspberry Pi
 robot/
-  robot.py           # Main robot control
-  Calibrate.py       # Servo calibration
+  robot.py                # Robot control (testing)
   ...
-talk.py              # Voice/emotion system
-enhanced_expressions.json
-servo_calibration.json
+mtalk.py                  # Voice/emotion system
+extra/                    # Old tests and extra things (not needed for main usage)
 ```
 
 ## Customization
